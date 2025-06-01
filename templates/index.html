@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>House Price Predictor</title>
+  <!-- Bootstrap CSS CDN -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .card {
+      max-width: 480px;
+      width: 100%;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      background: #fff;
+    }
+    #result {
+      font-weight: 600;
+      font-size: 1.3rem;
+      margin-top: 20px;
+      text-align: center;
+      color: #2c3e50;
+    }
+    button {
+      background-color: #3498db;
+      color: white;
+      padding: 12px 24px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    button:hover {
+      background-color: #2980b9;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+      border: 2px solid #fff;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="card">
+    <p class="text-center mb-4 text-primary h1">House Price Predictor</p>
+
+    <form id="priceForm">
+      <div class="mb-3">
+        <label for="bedrooms" class="form-label">Bedrooms</label>
+        <input
+          type="number"
+          class="form-control"
+          id="bedrooms"
+          name="bedrooms"
+          min="0"
+          required
+          placeholder="Enter number of bedrooms"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="bathrooms" class="form-label">Bathrooms</label>
+        <input
+          type="number"
+          class="form-control"
+          id="bathrooms"
+          name="bathrooms"
+          min="0"
+          required
+          placeholder="Enter number of bathrooms"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="living_area" class="form-label">Living Area (sq ft)</label>
+        <input
+          type="number"
+          class="form-control"
+          id="living_area"
+          name="living_area"
+          min="100"
+          required
+          placeholder="Enter living area in sq ft"
+        />
+      </div>
+
+      <!-- <div class="mb-3">
+        <label for="zipcode" class="form-label">Zipcode</label>
+        <input
+          type="text"
+          class="form-control"
+          id="zipcode"
+          name="zipcode"
+          required
+          placeholder="Enter zipcode"
+          pattern="560[0-9]{3}"
+          title="Please enter a valid Bengaluru ZIP code (e.g., 560001)"
+        />
+      </div> -->
+
+      <div class="mb-3">
+        <label for="condition" class="form-label">Location</label>
+        <select id="locationDropdown" class="form-select" aria-label="Select Location">
+        <option selected disabled>Choose your area</option>
+
+        <optgroup label="B">
+            <option value="banashankari">Banashankari</option>
+            <option value="banashankari 2nd stage">Banashankari 2nd Stage</option>
+            <option value="banashankari 3rd stage">Banashankari 3rd Stage</option>
+            <option value="banjara hills">Banjara Hills</option>
+            <option value="basavanagudi">Basavanagudi</option>
+            <option value="bellandur">Bellandur</option>
+            <option value="bilekahalli">Bilekahalli</option>
+            <option value="brookfield">Brookfield</option>
+            <option value="btm layout">BTM Layout</option>
+            <option value="bakersfield">Bakersfield</option>
+        </optgroup>
+
+        <optgroup label="C">
+            <option value="church street">Church Street</option>
+            <option value="cv raman nagar">CV Raman Nagar</option>
+            <option value="cunningham road">Cunningham Road</option>
+        </optgroup>
+
+        <optgroup label="D">
+            <option value="doddakannalli">Doddakannalli</option>
+        </optgroup>
+
+        <optgroup label="E">
+            <option value="electronic city">Electronic City</option>
+            <option value="electronic city phase 1">Electronic City Phase 1</option>
+        </optgroup>
+
+        <optgroup label="G">
+            <option value="garudachar palya">Garudachar Palya</option>
+        </optgroup>
+
+        <optgroup label="H">
+            <option value="hebbal">Hebbal</option>
+            <option value="hebbal industrial area">Hebbal Industrial Area</option>
+            <option value="hebbal kempapura">Hebbal Kempapura</option>
+            <option value="hsr layout">HSR Layout</option>
+        </optgroup>
+
+        <optgroup label="J">
+            <option value="jayanagar">Jayanagar</option>
+            <option value="jpnagar">JP Nagar</option>
+        </optgroup>
+
+        <optgroup label="K">
+            <option value="kammanahalli">Kammanahalli</option>
+            <option value="kanakapura road">Kanakapura Road</option>
+            <option value="kengeri">Kengeri</option>
+            <option value="koramangala">Koramangala</option>
+            <option value="kr puram">KR Puram</option>
+            <option value="kumaraswamy layout">Kumaraswamy Layout</option>
+        </optgroup>
+
+        <optgroup label="L">
+            <option value="lavelle road">Lavelle Road</option>
+        </optgroup>
+
+        <optgroup label="M">
+            <option value="malleshwaram">Malleshwaram</option>
+            <option value="marathahalli">Marathahalli</option>
+            <option value="murugeshpalya">Murugeshpalya</option>
+        </optgroup>
+
+        <optgroup label="N">
+            <option value="neelasandra">Neelasandra</option>
+        </optgroup>
+
+        <optgroup label="P">
+            <option value="pattandur agrahara">Pattandur Agrahara</option>
+        </optgroup>
+
+        <optgroup label="R">
+            <option value="rajajinagar">Rajajinagar</option>
+            <option value="rajiv gandhi nagar">Rajiv Gandhi Nagar</option>
+            <option value="rangaswamy layout">Rangaswamy Layout</option>
+            <option value="rajaji nagar">Rajaji Nagar</option>
+        </optgroup>
+
+        <optgroup label="S">
+            <option value="sarjapur road">Sarjapur Road</option>
+            <option value="sanjay nagar">Sanjay Nagar</option>
+            <option value="somasundara palya">Somasundara Palya</option>
+        </optgroup>
+
+        <optgroup label="U">
+            <option value="ulsoor">Ulsoor</option>
+        </optgroup>
+
+        <optgroup label="V">
+            <option value="vrindavan layout">Vrindavan Layout</option>
+        </optgroup>
+
+        <optgroup label="W">
+            <option value="whitefield">Whitefield</option>
+            <option value="whitefield east">Whitefield East</option>
+        </optgroup>
+
+        <optgroup label="Y">
+            <option value="yelahanka">Yelahanka</option>
+            <option value="yelahanka new town">Yelahanka New Town</option>
+        </optgroup>
+
+        <optgroup label="O">
+            <option value="other">Other (Enter manually)</option>
+        </optgroup>
+        </select>
+
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100" style="font-weight: bolder; font-size: large;">Predict Price</button>
+    </form>
+
+    <div id="result"></div>
+  </div>
+
+  <!-- Bootstrap JS Bundle (Popper + Bootstrap) -->
+  </script>
+ <script src="../static/script.js"></script>
+</body>
+</html>
