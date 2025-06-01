@@ -5,7 +5,7 @@ e.preventDefault(); // Prevent form from submitting the default way
 const bedrooms = document.getElementById('bedrooms').value;
 const bathrooms = document.getElementById('bathrooms').value;
 const livingArea = document.getElementById('living_area').value;
-const zipcode = document.getElementById('zipcode').value;
+// const zipcode = document.getElementById('zipcode').value;
 const location = document.getElementById('locationDropdown').value;
 
 // Prepare data object
@@ -13,7 +13,7 @@ const formData = {
     bedrooms: parseInt(bedrooms),
     bathrooms: parseInt(bathrooms),
     living_area: parseFloat(livingArea),
-    zipcode: zipcode,
+    // zipcode: zipcode,
     location: location
 };
 
